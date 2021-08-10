@@ -2,6 +2,10 @@ networks:
     tg-bot:
       driver: bridge
 
+volumes: 
+    minio-persistence:
+    redis-persistence:
+
 services:
     redis:
         image: bitnami/redis
@@ -10,7 +14,7 @@ services:
         environment:
         - REDIS_PORT_NUMBER=7000
         volumes:
-        - redis-persistence:/bitnami/redis/data
+        - redis-persistence:/bitnami/redis/data:rw
         networks:
         - tg-bot
     minio:
@@ -18,7 +22,7 @@ services:
         ports:
             - "9000:9000"
         volumes:
-        - minio-persistence:/data
+        - minio-persistence:/data:rw
         environment:
         - MINIO_ACCESS_KEY=${MINIO_USERNAME}
         - MINIO_SECRET_KEY=${MINIO_PASSWORD}
