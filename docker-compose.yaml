@@ -3,8 +3,8 @@ networks:
       driver: bridge
 
 volumes: 
-    minio-persistence:
-    redis-persistence:
+    minio:
+    redis:
 
 services:
     redis:
@@ -12,20 +12,21 @@ services:
         ports:
             - "7000:7000"
         environment:
-        - REDIS_PORT_NUMBER=7000
+        - REDIS_PORT_NUMBER=${REDIS_PORT}
         - ALLOW_EMPTY_PASSWORD=yes
-        volumes:
-        - redis-persistence:/bitnami/redis/data:rw
+            #volumes:
+            #- redis:/bitnami/redis/data:rw
         networks:
         - tg-bot
     minio:
-        image: bitnami/minio
+        image: bitnami/minio:2021.6.17-debian-10-r36
         ports:
             - "9000:9000"
-        volumes:
-        - minio-persistence:/data:rw
+            #volumes:
+            #- minio:/data:rw
         environment:
-        - MINIO_ACCESS_KEY=${MINIO_USERNAME}
-        - MINIO_SECRET_KEY=${MINIO_PASSWORD}
+        - MINIO_ACCESS_KEY=${MINIO_ACCESS_KEY}
+        - MINIO_SECRET_KEY=${MINIO_SECRET_KEY}
+        - BITNAMI_DEBUG=true
         networks:
         - tg-bot
