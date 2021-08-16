@@ -76,7 +76,8 @@ def preprocess_post(group_name: str, post: dict):
     if reposts:
         repost = reposts[0]
         repost_text = repost.get('text',None)
-
+        repost_text = re.sub(r"\[(.*)\|(.*)\]", r"\2", repost_text)
+        
     post_text = post.get('text', '')
 
     text = preprocess_text(group_name, post_text, repost_text=repost_text )
