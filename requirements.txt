@@ -2,6 +2,3 @@ celery[redis]==5.1.2
 python-telegram-bot==13.7
 vk-api==11.9.4
 redis==3.5.3
-minio==7.1.0
-Pillow==8.3.1
-asgiref==3.4.1

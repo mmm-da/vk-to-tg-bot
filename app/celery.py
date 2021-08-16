@@ -1,4 +1,6 @@
 from celery import Celery
+import os
+
 app = Celery(
     "app",
     include=[
@@ -8,8 +10,10 @@ app = Celery(
     ],
 )
 
-app.conf.broker_url = f"redis://@localhost:7000/0"
-app.conf.result_backend = f"redis://@localhost:7000/0"
+redis_host = os.environ.get('REDIS_HOST', 'redis')
+
+app.conf.broker_url = f'redis://@{redis_host}:7000/0'
+app.conf.result_backend = f'redis://@{redis_host}:7000/0'
 
 app.conf.beat_schedule = {
     'pull-vk-posts': {
