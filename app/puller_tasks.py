@@ -77,7 +77,7 @@ def preprocess_post(group_name: str, post: dict):
         repost = reposts[0]
         repost_text = repost.get('text',None)
         repost_text = re.sub(r"\[(.*)\|(.*)\]", r"\2", repost_text)
-        
+
     post_text = post.get('text', '')
 
     text = preprocess_text(group_name, post_text, repost_text=repost_text )
@@ -88,7 +88,7 @@ def preprocess_post(group_name: str, post: dict):
 
     send_message_with_post.delay(text,attachments)
 
-@app.task
+@app.task(rate_limit='10/m')
 def pull_vk_posts():
     r = redis.Redis(host=os.environ["REDIS_HOST"], port=os.environ["REDIS_PORT"], db=1)
     for owner_id in OWNERS_ID:
