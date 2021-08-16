@@ -6,7 +6,7 @@ bot = telegram.bot.Bot(token=os.environ["TELEGRAM_API_KEY"])
 chat_id = os.environ["TELEGRAM_ALLOWED_CHATS_ID"]
 
 
-@app.task(rate_limit='10/m')
+@app.task(rate_limit='5/m')
 def send_message_with_post(text: str, attachments: list):
     if attachments:
         media_group = []
