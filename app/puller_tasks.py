@@ -98,7 +98,6 @@ def pull_vk_posts():
         last_post = r.get(last_post_redis_key)
         if last_post:
             last_post = int(last_post)
-            last_post = 0
         else:
             last_post = 0
 
