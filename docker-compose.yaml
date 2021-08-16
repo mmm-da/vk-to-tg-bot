@@ -14,8 +14,8 @@ services:
         environment:
         - REDIS_PORT_NUMBER=${REDIS_PORT}
         - ALLOW_EMPTY_PASSWORD=yes
-        volumes:
-        - redis:/bitnami/redis/data:rw
+        #volumes:
+        #- redis:/bitnami/redis/data:rw
         networks:
         - tg-bot
     app:

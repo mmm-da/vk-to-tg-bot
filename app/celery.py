@@ -18,7 +18,7 @@ app.conf.result_backend = f'redis://@{redis_host}:7000/0'
 app.conf.beat_schedule = {
     'pull-vk-posts': {
         'task': 'app.puller_tasks.pull_vk_posts',
-        'schedule': 300.0
+        'schedule': 10.0
     },
 }
 
