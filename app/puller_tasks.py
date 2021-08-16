@@ -106,10 +106,11 @@ def pull_vk_posts():
             return el["id"] > last_post
 
         posts = list(filter(filter_posts, result["items"]))
-
+        print(f'Pull {len(posts)} new posts')
         try:
             last_post = max(posts, key=lambda el: el["id"])["id"]
             r.set(last_post_redis_key, last_post)
+            print(f'Last post id = {last_post}')
         except ValueError:
             print(f"No new posts for {OWNERS_ID[owner_id]}")
 
