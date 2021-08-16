@@ -112,7 +112,7 @@ def pull_vk_posts():
             r.set(last_post_redis_key, last_post)
             print(f'Last post id = {last_post}')
         except ValueError:
-            print(f"No new posts for {OWNERS_ID[owner_id]}")
+            print(f"No new posts for {OWNERS_ID[owner_id]}, last post id = {last_post}")
 
         for post in posts:
             preprocess_post.delay(OWNERS_ID[owner_id], post)
