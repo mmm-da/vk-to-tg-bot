@@ -14,7 +14,7 @@ def preprocess_text(group_name: str, text: str,repost_text=None) -> str:
     text = re.sub(r"\[(.*)\|(.*)\]", r"\2", text)
     if repost_text:
         text += '\n-----------------\n' + repost_text
-    return f"<b>{group_name}</b>\n\n" + text
+    return f"<b>#{group_name}</b>\n\n" + text
 
 
 def preprocess_attachments(post: dict,text:str,repost=None) -> list:
