@@ -1,6 +1,8 @@
+version: "3.8"
 networks:
-    tg-bot:
-      driver: bridge
+    tg-bot-overlay:
+      driver: overlay
+      attachable: true 
 
 volumes: 
     minio:
@@ -9,21 +11,20 @@ volumes:
 services:
     redis:
         image: bitnami/redis
-        ports:
-        - "7000:7000"
+        expose:
+        - "7000"
         environment:
-        - REDIS_PORT_NUMBER=${REDIS_PORT}
+        - REDIS_PORT_NUMBER=7000
         - ALLOW_EMPTY_PASSWORD=yes
         volumes:
         - redis:/bitnami/redis/data:rw
         networks:
-        - tg-bot
+        - tg-bot-overlay
     app:
         depends_on:
             - redis
-        build:
-            context: "./"
+        image: vktotgbot:1.0
         env_file: .env
         command: celery -A app worker -B
         networks:
-        - tg-bot
+        - tg-bot-overlay
